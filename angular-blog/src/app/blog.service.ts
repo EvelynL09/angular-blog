@@ -8,7 +8,7 @@ export class BlogService {
   constructor() { }
   fetchPosts(username: string): void {//Promise<Post[]>{
   	fetch("localhost:3000/api/${username}")
-  	.then(res => console.log(res););
+  	.then(res => console.log(res));
   }
 }
 export class Post {

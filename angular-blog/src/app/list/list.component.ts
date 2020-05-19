@@ -8,16 +8,19 @@ import { Post, BlogService } from '../blog.service';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private blogService: BlogService) { 
+  constructor(private blogService: BlogService) {
+      console.log(parseJWT(document.cookie).usr);
   }
 
   ngOnInit(): void {
   }
-
+  username = parseJWT(document.cookie).usr;
 
 }
 
-function parseJWT(token) 
+//the JWT token is accessible through document.cookie
+//parseJWT extracts the username from JWT
+function parseJWT(token)
 {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
