@@ -9,12 +9,23 @@ import { Post, BlogService } from '../blog.service';
 export class ListComponent implements OnInit {
 
   constructor(private blogService: BlogService) {
-      console.log(parseJWT(document.cookie).usr);
+      // console.log(parseJWT(document.cookie).usr);
+      // this.blogService.fetchPosts(this.username)
+      // .then(posts => {
+      //     console.log("posts:" + posts);
+      //     this.posts = posts;    });
+      // console.log("posts" + this.posts);
   }
 
   ngOnInit(): void {
+    // this.posts =
+    this.blogService.fetchPosts(this.username).then(posts => this.posts = posts);
+    // console.log("ListComponent - posts")
+    // console.log(this.posts);
   }
+  posts:Post[];
   username = parseJWT(document.cookie).usr;
+  // posts = this.blogService.fetchPosts(this.username);
 
 }
 
