@@ -19,12 +19,18 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.posts =
-    this.blogService.fetchPosts(this.username).then(posts => this.posts = posts);
+    if(document.cookie){
+      let username = parseJWT(document.cookie).usr;
+      // username = "errorTrigger"; //for bug triggering
+      this.blogService.fetchPosts(username).then(posts => this.posts = posts);
+    }
+    else{
+        console.log("TODO: no cookie is found!");
+    }
     // console.log("ListComponent - posts")
     // console.log(this.posts);
   }
   posts:Post[];
-  username = parseJWT(document.cookie).usr;
   // posts = this.blogService.fetchPosts(this.username);
 
 }
