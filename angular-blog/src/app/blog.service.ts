@@ -8,8 +8,8 @@ export class BlogService {
   constructor() { }
 
   fetchPosts(username: string): Promise<Post[]>{
-    const url = `http://localhost:3000/api/${username}`;
-    return fetch(url, {credentials: 'include'}).then(response => {
+    const url = `/api/${username}`;
+    return fetch(url).then(response => {
         let posts = response.json();
         console.log("Blog-Service - posts:")
         console.log(posts);
@@ -17,7 +17,7 @@ export class BlogService {
         // as Post[]
     })
   }
-  
+
 }
 export class Post {
   postid: number;
