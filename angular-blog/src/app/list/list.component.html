@@ -1,1 +1,23 @@
-<p>list works!</p>
+<!-- <p>list works!</p> -->
+<!-- <h1>{{posts[0]}}</h1> -->
+<ul class="posts">
+  <!-- <li *ngFor="let post of posts"
+    [class.selected]="post === posts"
+    (click)="onSelect(post)"
+    > -->
+  <li *ngFor="let post of posts"    >
+    <span class="badge">{{post.created}}</span> {{post.title}}
+  </li>
+</ul>
+
+<!-- <div *ngIf="selectedHero">
+
+  <h2>{{selectedHero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedHero.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedHero.name" placeholder="name"/>
+    </label>
+  </div>
+
+</div> -->
