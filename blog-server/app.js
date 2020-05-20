@@ -11,15 +11,8 @@ var usersRouter = require('./routes/users');
 var blogsRouter = require('./routes/blog');
 var loginRouter = require('./routes/login');
 var apiRouter = require('./routes/api');
-var cors = require('cors')
 var app = express();
 
-var corsOptions = {
-  credentials:true,
-  origin: 'http://localhost:4200',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors(corsOptions))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
