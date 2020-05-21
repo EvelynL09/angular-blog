@@ -4,8 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BlogService {
+  draft: Post;
 
-  constructor() { }
+  constructor() { 
+  }
   // This method sends an HTTP GET request to /api/:username and retrieves all blog posts by the user.
   // If successful, the returned promise resolves to a Post array (of Post[] type) that contains the user’s posts.
   // In case of error, the promise is rejected to Error(response_status_code).
@@ -98,6 +100,13 @@ export class BlogService {
       .then(function(){//resoleved
       }, function(error){console.error(error);})})
       // .catch(error => { console.log(error)})
+  }
+  setCurrentDraft(post: Post): void {
+    this.draft = post;
+
+  }
+  getCurrentDraft(): Post {
+    return this.draft;
   }
 
 

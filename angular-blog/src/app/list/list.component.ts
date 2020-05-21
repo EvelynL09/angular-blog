@@ -8,6 +8,9 @@ import { Post, BlogService } from '../blog.service';
 })
 export class ListComponent implements OnInit {
 
+  posts:Post[];
+  // posts = this.blogService.fetchPosts(this.username);
+
   constructor(private blogService: BlogService) {
       // console.log(parseJWT(document.cookie).usr);
       // this.blogService.fetchPosts(this.username)
@@ -39,9 +42,12 @@ export class ListComponent implements OnInit {
       let tempPost_put1:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
       let tempPost_put2:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here._hello" };
 
-
+      //this.blogService.newPost(username, tempPost_new);
       //this.blogService.updatePost(username, tempPost_put1);
-      this.blogService.deletePost(username, 3);
+      //this.blogService.deletePost(username, 3);
+      console.log(JSON.stringify(this.blogService.getCurrentDraft()));
+      this.blogService.setCurrentDraft(tempPost_put2);
+      console.log(JSON.stringify(this.blogService.getCurrentDraft()));
 
 
     }
@@ -51,8 +57,7 @@ export class ListComponent implements OnInit {
     // console.log("ListComponent - posts")
     // console.log(this.posts);
   }
-  posts:Post[];
-  // posts = this.blogService.fetchPosts(this.username);
+  
 
 }
 
