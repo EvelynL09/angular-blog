@@ -17,8 +17,8 @@ export class BlogService {
         throw new Error(String(response.status));
       }
       let posts = response.json();
-      console.log("Blog-Service - posts:");
-      console.log(posts);
+      //console.log("Blog-Service - posts:");
+      //console.log(posts);
       return posts;})
     .catch(error => { 
       Promise.reject(error)
@@ -34,9 +34,65 @@ export class BlogService {
         throw new Error(String(response.status));
       }
       let post = response.json();
-      console.log("Blog-Service - posts:");
-      console.log(post);
+      //console.log("Blog-Service - posts:");
+      //console.log(post);
       return post;})
+    .catch(error => { 
+      Promise.reject(error)
+      .then(function(){//resoleved
+      }, function(error){console.error(error);})})
+      // .catch(error => { console.log(error)})
+  }
+  newPost(username: string, post: Post): Promise<void> {
+    const url = `/api/${username}/${post.postid}`;
+    //console.log("post body");
+    //console.log(JSON.stringify(post));
+    let data = {
+        title: post.title,
+        body: post.body};
+    //console.log(JSON.stringify(data));
+    return fetch(url, {method: 'POST', headers: {
+      'Content-Type': 'application/json'
+    }, body: JSON.stringify(data),})
+    .then(response => {
+      if(!response.ok){
+        throw new Error(String(response.status));
+      }
+      })
+    .catch(error => { 
+      Promise.reject(error)
+      .then(function(){//resoleved
+      }, function(error){console.error(error);})})
+      // .catch(error => { console.log(error)})
+  }
+  updatePost(username: string, post: Post): Promise<void> {
+    const url = `/api/${username}/${post.postid}`;
+    //console.log("post body");
+    //console.log(JSON.stringify(post));
+    return fetch(url, {method: 'PUT', headers: {
+      'Content-Type': 'application/json'
+    }, body: JSON.stringify(post),})
+    .then(response => {
+      if(!response.ok){
+        throw new Error(String(response.status));
+      }
+      })
+    .catch(error => { 
+      Promise.reject(error)
+      .then(function(){//resoleved
+      }, function(error){console.error(error);})})
+      // .catch(error => { console.log(error)})
+  }
+  deletePost(username: string, postid: number): Promise<void> {
+    const url = `/api/${username}/${postid}`;
+    //console.log("post body");
+    //console.log(JSON.stringify(post));
+    return fetch(url, {method: 'DELETE',})
+    .then(response => {
+      if(!response.ok){
+        throw new Error(String(response.status));
+      }
+      })
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved

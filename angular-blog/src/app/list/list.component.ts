@@ -30,12 +30,19 @@ export class ListComponent implements OnInit {
       });
       */
 
-
-
+      /*
       this.blogService.getPost(username,1).then(post => {
         this.posts = [];
         this.posts[0] = post;
-      });
+      });*/
+      let tempPost_new:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
+      let tempPost_put1:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
+      let tempPost_put2:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here._hello" };
+
+
+      //this.blogService.updatePost(username, tempPost_put1);
+      this.blogService.deletePost(username, 3);
+
 
     }
     else{
