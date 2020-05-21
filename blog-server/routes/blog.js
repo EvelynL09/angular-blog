@@ -37,7 +37,7 @@ router.get('/:username/:postid', function (req, res, next) {
 		  		let parsedBody = reader.parse(resContent.body);
 		  		let resBody = writer.render(parsedBody);
 
-				let ctime = new Date(resContent.modified);
+				let ctime = new Date(resContent.created);
 				let mtime = new Date(resContent.modified);
 		  		res.render('blog', { username: givenUsername, id: givenPostid, title: resTitle, body: resBody, created: ctime.toString().substring(0,24), modified: mtime.toString().substring(0,24) });
 			}

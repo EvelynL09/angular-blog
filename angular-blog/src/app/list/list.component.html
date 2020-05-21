@@ -5,8 +5,8 @@
     [class.selected]="post === posts"
     (click)="onSelect(post)"
     > -->
-  <li *ngFor="let post of posts"    >
-    <span class="badge">{{post.created}}</span> {{post.title}}
+  <li *ngFor="let post of posts">
+    <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
   </li>
 </ul>
 

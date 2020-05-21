@@ -22,7 +22,21 @@ export class ListComponent implements OnInit {
     if(document.cookie){
       let username = parseJWT(document.cookie).usr;
       // username = "errorTrigger"; //for bug triggering
-      this.blogService.fetchPosts(username).then(posts => this.posts = posts);
+
+      /*
+      this.blogService.fetchPosts(username).then(posts => {
+        this.posts = [];
+        this.posts = posts;
+      });
+      */
+
+
+
+      this.blogService.getPost(username,1).then(post => {
+        this.posts = [];
+        this.posts[0] = post;
+      });
+
     }
     else{
         console.log("TODO: no cookie is found!");
