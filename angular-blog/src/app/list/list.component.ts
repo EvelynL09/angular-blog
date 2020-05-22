@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post, BlogService } from '../blog.service';
-import { Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +16,8 @@ export class ListComponent implements OnInit {
   // posts = this.blogService.fetchPosts(this.username);
 
   constructor(private blogService: BlogService, 
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
       // console.log(parseJWT(document.cookie).usr);
       // this.blogService.fetchPosts(this.username)
       // .then(posts => {
@@ -31,7 +32,7 @@ export class ListComponent implements OnInit {
     //if(document.cookie){
     //  let username = parseJWT(document.cookie).usr;
     this.username = this.getUsername();
-    this.getPosts();
+    this.activatedRoute.paramMap.subscribe(() => this.getPosts());
 
       /* not work
       this.posts=this.blogService.fetchPosts(username)
@@ -81,14 +82,14 @@ export class ListComponent implements OnInit {
     return username;
   }
   getPosts() {
-    return this.blogService.fetchPosts(this.username)
+    this.blogService.fetchPosts(this.username)
     .then(posts => {
        this.posts = [];
        this.posts=posts;
     });
   }
   getNextID() {
-    let maxID = 0;
+    let maxID = 1;
     for(let i = 0; i < this.posts.length; i++){
       if(this.posts[i].postid > maxID)
         maxID = this.posts[i].postid;
@@ -97,7 +98,7 @@ export class ListComponent implements OnInit {
   }
   newPost(){
     this.getNextID();
-    console.log(this.nextID);
+    //console.log(this.nextID);
     let tempPost_new:Post = { "postid": this.nextID, "created": new Date(), "modified": new Date(), "title": "", "body": "" };
     this.blogService.newPost(this.username, tempPost_new);
     this.blogService.setCurrentDraft(tempPost_new);
@@ -107,9 +108,8 @@ export class ListComponent implements OnInit {
   }
   curPost(post){
     this.blogService.setCurrentDraft(post);
-    console.log(post.postid)
+    //console.log(post.postid)
     this.router.navigate(['/edit/'+post.postid]);
-
   }
 
   //for testing
