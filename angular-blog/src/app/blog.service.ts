@@ -25,7 +25,7 @@ export class BlogService {
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
-      }, function(error){console.error(error);})})
+      }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
   getPost(username: string, postid: number): Promise<Post>{
@@ -42,9 +42,10 @@ export class BlogService {
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
-      }, function(error){console.error(error);})})
+      }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
+  
   newPost(username: string, post: Post): Promise<void> {
     const url = `/api/${username}/${post.postid}`;
     //console.log("post body");
@@ -64,7 +65,7 @@ export class BlogService {
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
-      }, function(error){console.error(error);})})
+      }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
   updatePost(username: string, post: Post): Promise<void> {
@@ -82,7 +83,7 @@ export class BlogService {
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
-      }, function(error){console.error(error);})})
+      }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
   deletePost(username: string, postid: number): Promise<void> {
@@ -98,7 +99,7 @@ export class BlogService {
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
-      }, function(error){console.error(error);})})
+      }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
   setCurrentDraft(post: Post): void {

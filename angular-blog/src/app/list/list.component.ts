@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post, BlogService } from '../blog.service';
+import { Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-list',
@@ -9,9 +11,12 @@ import { Post, BlogService } from '../blog.service';
 export class ListComponent implements OnInit {
 
   posts:Post[];
+  nextID: number;
+  username: string;
   // posts = this.blogService.fetchPosts(this.username);
 
-  constructor(private blogService: BlogService) {
+  constructor(private blogService: BlogService, 
+              private router: Router) {
       // console.log(parseJWT(document.cookie).usr);
       // this.blogService.fetchPosts(this.username)
       // .then(posts => {
@@ -22,41 +27,93 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.posts =
-    if(document.cookie){
-      let username = parseJWT(document.cookie).usr;
-      // username = "errorTrigger"; //for bug triggering
 
-      /*
-      this.blogService.fetchPosts(username).then(posts => {
+    //if(document.cookie){
+    //  let username = parseJWT(document.cookie).usr;
+    this.username = this.getUsername();
+    this.getPosts();
+
+      /* not work
+      this.posts=this.blogService.fetchPosts(username)
+      .then(posts => {
         this.posts = [];
         this.posts = posts;
       });
+      console.log(this.posts);
       */
+      // username = "errorTrigger"; //for bug triggering
+      
+      
 
       /*
       this.blogService.getPost(username,1).then(post => {
         this.posts = [];
         this.posts[0] = post;
       });*/
+      /*
       let tempPost_new:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
       let tempPost_put1:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
       let tempPost_put2:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here._hello" };
-
+      */
       //this.blogService.newPost(username, tempPost_new);
       //this.blogService.updatePost(username, tempPost_put1);
       //this.blogService.deletePost(username, 3);
-      console.log(JSON.stringify(this.blogService.getCurrentDraft()));
-      this.blogService.setCurrentDraft(tempPost_put2);
-      console.log(JSON.stringify(this.blogService.getCurrentDraft()));
+      //console.log(JSON.stringify(this.blogService.getCurrentDraft()));
+      //this.blogService.setCurrentDraft(tempPost_put2);
+      //console.log(JSON.stringify(this.blogService.getCurrentDraft()));
 
 
+    //}
+    //else{
+    //    console.log("TODO: no cookie is found!");
+    //}
+    // console.log("ListComponent - posts")
+    // console.log(this.posts);
+  }
+  getUsername() {
+    let username = "";
+    if(document.cookie){
+      username = parseJWT(document.cookie).usr;
     }
     else{
         console.log("TODO: no cookie is found!");
     }
-    // console.log("ListComponent - posts")
-    // console.log(this.posts);
+    return username;
   }
+  getPosts() {
+    return this.blogService.fetchPosts(this.username)
+    .then(posts => {
+       this.posts = [];
+       this.posts=posts;
+    });
+  }
+  getNextID() {
+    let maxID = 0;
+    for(let i = 0; i < this.posts.length; i++){
+      if(this.posts[i].postid > maxID)
+        maxID = this.posts[i].postid;
+    }
+    this.nextID = maxID+1;
+  }
+  newPost(){
+    this.getNextID();
+    console.log(this.nextID);
+    let tempPost_new:Post = { "postid": this.nextID, "created": new Date(), "modified": new Date(), "title": "", "body": "" };
+    this.blogService.newPost(this.username, tempPost_new);
+    this.blogService.setCurrentDraft(tempPost_new);
+    this.getPosts();
+    this.router.navigate(['/edit/' +this.nextID]);
+
+  }
+  curPost(post){
+    this.blogService.setCurrentDraft(post);
+    console.log(post.postid)
+    this.router.navigate(['/edit/'+post.postid]);
+
+  }
+
+  //for testing
+  //showAlert() { alert("Submit button pressed!"); return false; }
   
 
 }

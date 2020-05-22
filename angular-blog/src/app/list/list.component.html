@@ -1,13 +1,38 @@
 <!-- <p>list works!</p> -->
 <!-- <h1>{{posts[0]}}</h1> -->
+<!-- can implement css here-->
+<!-- <div><input type="button" value="New Post" (click)="showAlert()"></div> -->
+<!--
+<div> <a routerLink="/edit/{{ nextID }}">
+  <input type="button" value="New Post">
+</a></div>
+-->
+<!-- NOT WORK
+<div> <a routerLink={{newPost()}}>
+  <input type="button" value="New Post">
+</a></div>
+-->
+
+<div><input type="button" value="New Post" (click)="newPost()"></div>
+
 <ul class="posts">
   <!-- <li *ngFor="let post of posts"
     [class.selected]="post === posts"
     (click)="onSelect(post)"
     > -->
+
   <li *ngFor="let post of posts">
-    <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
+    <a (click) ="curPost(post)">
+      <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
+    </a>
   </li>
+  <!--
+  <li *ngFor="let post of posts">
+    <a routerLink="/edit/{{post.postid}}">
+      <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
+    </a>
+  </li>
+  -->
 </ul>
 
 <!-- <div *ngIf="selectedHero">
