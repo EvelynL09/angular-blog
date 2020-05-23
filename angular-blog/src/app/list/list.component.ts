@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Post, BlogService } from '../blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { ThrowStmt } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-list',
@@ -32,7 +34,13 @@ export class ListComponent implements OnInit {
     //if(document.cookie){
     //  let username = parseJWT(document.cookie).usr;
     this.username = this.getUsername();
-    this.activatedRoute.paramMap.subscribe(() => this.getPosts());
+    //this.getPosts();
+    this.activatedRoute.paramMap.subscribe(() => {
+      this.getPosts();
+    });
+    //this.blogService.getPosts(this.username).then((post)=>this.posts = post);
+
+    
 
       /* not work
       this.posts=this.blogService.fetchPosts(username)
@@ -86,10 +94,11 @@ export class ListComponent implements OnInit {
     .then(posts => {
        this.posts = [];
        this.posts=posts;
+       //console.log(this.posts);
     });
   }
   getNextID() {
-    let maxID = 1;
+    let maxID = 0;
     for(let i = 0; i < this.posts.length; i++){
       if(this.posts[i].postid > maxID)
         maxID = this.posts[i].postid;
@@ -111,6 +120,7 @@ export class ListComponent implements OnInit {
     //console.log(post.postid)
     this.router.navigate(['/edit/'+post.postid]);
   }
+
 
   //for testing
   //showAlert() { alert("Submit button pressed!"); return false; }

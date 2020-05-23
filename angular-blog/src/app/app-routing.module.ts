@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
-    { path: 'edit/:id', component: EditComponent }
+    { path: 'edit/:id', component: EditComponent },
+
 ];
 
 

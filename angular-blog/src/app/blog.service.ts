@@ -21,13 +21,17 @@ export class BlogService {
       let posts = response.json();
       //console.log("Blog-Service - posts:");
       //console.log(posts);
-      return posts;})
+      //return posts;
+      //this.posts = posts;
+      return posts;
+    })
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
       }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
+  
   getPost(username: string, postid: number): Promise<Post>{
     const url = `/api/${username}/${postid}`;
     return fetch(url)
@@ -95,7 +99,7 @@ export class BlogService {
       if(!response.ok){
         throw new Error(String(response.status));
       }
-      })
+    })
     .catch(error => { 
       Promise.reject(error)
       .then(function(){//resoleved
