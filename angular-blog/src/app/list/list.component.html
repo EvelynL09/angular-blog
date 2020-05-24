@@ -1,23 +1,54 @@
 <!-- <p>list works!</p> -->
 <!-- <h1>{{posts[0]}}</h1> -->
-<ul class="posts">
-  <!-- <li *ngFor="let post of posts"
-    [class.selected]="post === posts"
-    (click)="onSelect(post)"
-    > -->
-  <li *ngFor="let post of posts"    >
-    <span class="badge">{{post.created}}</span> {{post.title}}
-  </li>
-</ul>
-
-<!-- <div *ngIf="selectedHero">
-
-  <h2>{{selectedHero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedHero.id}}</div>
+<!-- can implement css here-->
+<!-- <div><input type="button" value="New Post" (click)="showAlert()"></div> -->
+<!--
+<div> <a routerLink="/edit/{{ nextID }}">
+  <input type="button" value="New Post">
+</a></div>
+-->
+<!-- NOT WORK
+<div> <a routerLink={{newPost()}}>
+  <input type="button" value="New Post">
+</a></div>
+-->
+<!-- <script type="text/javascript">
+    getPosts();
+</script> -->
+<div class="list">
   <div>
-    <label>name:
-      <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-    </label>
+    <button type="button" class="button" (click)="newPost()"><span id="newPost">New Post</span></button>
   </div>
 
-</div> -->
+  <ul class="posts">
+      <!-- <li *ngFor="let post of posts"
+        [class.selected]="post === posts"
+        (click)="onSelect(post)"
+        > -->
+    <li *ngFor="let post of posts">
+      <!-- click a single post to get edit component -->
+      <a (click)="saveCurrPostAsDraft(post)">
+      <!-- <a [routerLink]="['/edit', post.postid]"> -->
+        <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
+      </a>
+    </li>
+      <!--
+      <li *ngFor="let post of posts">
+        <a routerLink="/edit/{{post.postid}}">
+          <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
+        </a>
+      </li>
+      -->
+  </ul>
+    <!-- <div *ngIf="selectedHero">
+
+      <h2>{{selectedHero.name | uppercase}} Details</h2>
+      <div><span>id: </span>{{selectedHero.id}}</div>
+      <div>
+        <label>name:
+          <input [(ngModel)]="selectedHero.name" placeholder="name"/>
+        </label>
+      </div>
+
+    </div> -->
+</div>

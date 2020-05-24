@@ -1,0 +1,15 @@
+<!-- use structural directive *ngIf to guard against null or undefined values in a property -->
+<div *ngIf="post" class="edit">
+  <h2 id="edit-header">Edit Post</h2>
+  <p>Title:</p>
+  <!-- The title and body of the current post should appear in text input and textarea -->
+  <input type="text" id="title" [(ngModel)]="post.title">
+  <p>Body: </p>
+  <textarea id="body" [(ngModel)]="post.body"></textarea>
+  <p> Last modified: {{post.modified | date: 'medium'}}</p>
+  <button type="button" class="button" (click)="delete()"><span id="delete">Delete</span></button>
+  <!-- The post should be updated/saved at the server -->
+  <button type="button" class="button" (click)="save()"><span id="save">Save</span></button>
+  <!-- display preview view when preview button is clicked -->
+  <button type="button" class="button" (click)="preview()"><span id="preview">Preview</span></button>
+</div>

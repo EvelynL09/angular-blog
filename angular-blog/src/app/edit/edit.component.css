@@ -1,0 +1,5 @@
+/* postsComponent's private CSS styles */
+.edit {
+  float: left;
+  width: 33.33%;/*three column display: https://www.w3schools.com/css/css_website_layout.asp*/
+}
