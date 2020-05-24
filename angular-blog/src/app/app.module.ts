@@ -6,8 +6,7 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 
-//
-//
+//To use ngModel directive e.g. [(ngModel)]="post.title"
 import { FormsModule } from '@angular/forms';
 
 

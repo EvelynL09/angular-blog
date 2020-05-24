@@ -17,9 +17,10 @@ export class ListComponent implements OnInit {
   username: string;
   // posts = this.blogService.fetchPosts(this.username);
 
-  constructor(private blogService: BlogService, 
+  constructor(private blogService: BlogService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
+    this.posts = [];
       // console.log(parseJWT(document.cookie).usr);
       // this.blogService.fetchPosts(this.username)
       // .then(posts => {
@@ -34,13 +35,13 @@ export class ListComponent implements OnInit {
     //if(document.cookie){
     //  let username = parseJWT(document.cookie).usr;
     this.username = this.getUsername();
-    //this.getPosts();
-    this.activatedRoute.paramMap.subscribe(() => {
-      this.getPosts();
-    });
+    this.getPosts();
+    // this.activatedRoute.paramMap.subscribe(() => this.getPosts());
+    // this.router.paramMap.subscribe(() => this.getPosts());
+
     //this.blogService.getPosts(this.username).then((post)=>this.posts = post);
 
-    
+
 
       /* not work
       this.posts=this.blogService.fetchPosts(username)
@@ -51,8 +52,8 @@ export class ListComponent implements OnInit {
       console.log(this.posts);
       */
       // username = "errorTrigger"; //for bug triggering
-      
-      
+
+
 
       /*
       this.blogService.getPost(username,1).then(post => {
@@ -92,8 +93,9 @@ export class ListComponent implements OnInit {
   getPosts() {
     this.blogService.fetchPosts(this.username)
     .then(posts => {
+       //clear posts
        this.posts = [];
-       this.posts=posts;
+       this.posts = posts;
        //console.log(this.posts);
     });
   }
@@ -105,6 +107,7 @@ export class ListComponent implements OnInit {
     }
     this.nextID = maxID+1;
   }
+  //called when new post button is clicked
   newPost(){
     this.getNextID();
     //console.log(this.nextID);
@@ -115,23 +118,32 @@ export class ListComponent implements OnInit {
     this.router.navigate(['/edit/' +this.nextID]);
 
   }
-  curPost(post){
-    this.blogService.setCurrentDraft(post);
-    //console.log(post.postid)
-    this.router.navigate(['/edit/'+post.postid]);
-  }
-
 
   //for testing
   //showAlert() { alert("Submit button pressed!"); return false; }
-  
+
 
 }
 
 //the JWT token is accessible through document.cookie
 //parseJWT extracts the username from JWT
-function parseJWT(token)
+function parseJWT(cookie)
 {
+    //get jwt from cookie
+    //example cookie
+    //PHPSESSID=oa5e8o9kik3489ofj35g13acf2; _ga=GA1.1.1138388568.1590315667; _gid=GA1.1.1710354031.1590315667; jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTAzNTIyNzgsInVzciI6ImNzMTQ0I
+    //reference: https://stackoverflow.com/questions/10730362/get-cookie-by-name
+    const value = `; ${cookie}`;
+    const parts = value.split(`; jwt=`);
+    let token;
+    if (parts.length === 2){
+        token = parts.pop().split(';').shift();
+    }
+    else{
+        token = cookie;
+    }
+    //given by spec
+    let jwt = token.split('; ')
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     return JSON.parse(atob(base64));

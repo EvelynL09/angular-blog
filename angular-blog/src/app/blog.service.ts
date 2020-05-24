@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 export class BlogService {
   draft: Post;
 
-  constructor() { 
+  constructor() {
+      this.draft = null;
   }
   // This method sends an HTTP GET request to /api/:username and retrieves all blog posts by the user.
   // If successful, the returned promise resolves to a Post array (of Post[] type) that contains the user’s posts.
@@ -25,13 +26,13 @@ export class BlogService {
       //this.posts = posts;
       return posts;
     })
-    .catch(error => { 
+    .catch(error => {
       Promise.reject(error)
       .then(function(){//resoleved
       }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
-  
+
   getPost(username: string, postid: number): Promise<Post>{
     const url = `/api/${username}/${postid}`;
     return fetch(url)
@@ -43,13 +44,13 @@ export class BlogService {
       //console.log("Blog-Service - posts:");
       //console.log(post);
       return post;})
-    .catch(error => { 
+    .catch(error => {
       Promise.reject(error)
       .then(function(){//resoleved
       }, function(error){console.error(error);})});
       // .catch(error => { console.log(error)})
   }
-  
+
   newPost(username: string, post: Post): Promise<void> {
     const url = `/api/${username}/${post.postid}`;
     //console.log("post body");
@@ -66,7 +67,7 @@ export class BlogService {
         throw new Error(String(response.status));
       }
       })
-    .catch(error => { 
+    .catch(error => {
       Promise.reject(error)
       .then(function(){//resoleved
       }, function(error){console.error(error);})});
@@ -84,7 +85,7 @@ export class BlogService {
         throw new Error(String(response.status));
       }
       })
-    .catch(error => { 
+    .catch(error => {
       Promise.reject(error)
       .then(function(){//resoleved
       }, function(error){console.error(error);})});
@@ -100,7 +101,7 @@ export class BlogService {
         throw new Error(String(response.status));
       }
     })
-    .catch(error => { 
+    .catch(error => {
       Promise.reject(error)
       .then(function(){//resoleved
       }, function(error){console.error(error);})});
@@ -110,6 +111,8 @@ export class BlogService {
     this.draft = post;
 
   }
+  // This method returns the draft saved in the earlier setCurrentDraft() call
+  // Return null if setCurrentDraft has never been called before.
   getCurrentDraft(): Post {
     return this.draft;
   }
