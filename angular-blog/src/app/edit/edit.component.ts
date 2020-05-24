@@ -3,6 +3,8 @@ import { Post, BlogService } from '../blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
+// //For @Input()
+// import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-edit',
@@ -13,6 +15,8 @@ export class EditComponent implements OnInit {
   	post:Post;
   	username:string;
   	postid:number;
+  // //Decorate a property with @Input() to expose it to property binding
+  // @Input() posts:Post[];
 
   	constructor(private blogService: BlogService,
   				private activatedRoute: ActivatedRoute,
@@ -57,6 +61,9 @@ export class EditComponent implements OnInit {
   	delete(){
   		this.blogService.deletePost(this.username, this.postid);
   		this.router.navigate(['/']).then(() => {window.location.reload(); });
+  		// this.router.navigate(['/']).then(() => { });
+
+  		// this.router.navigate(['/']);
   	}
   	save(){
   		// this.blogService.updatePost();

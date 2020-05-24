@@ -8,13 +8,15 @@ import { EditComponent } from './edit/edit.component';
 
 //To use ngModel directive e.g. [(ngModel)]="post.title"
 import { FormsModule } from '@angular/forms';
+import { PreviewComponent } from './preview/preview.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    EditComponent
+    EditComponent,
+    PreviewComponent
   ],
   imports: [
   //

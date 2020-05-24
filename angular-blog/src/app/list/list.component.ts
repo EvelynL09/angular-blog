@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ThrowStmt } from '@angular/compiler';
 
+// //For @Input()
+// import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +14,10 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ListComponent implements OnInit {
 
+  // //Decorate a property with @Input() to expose it to property binding
+  // @Input() posts:Post[];
   posts:Post[];
+
   nextID: number;
   username: string;
   // posts = this.blogService.fetchPosts(this.username);
@@ -35,8 +40,8 @@ export class ListComponent implements OnInit {
     //if(document.cookie){
     //  let username = parseJWT(document.cookie).usr;
     this.username = this.getUsername();
-    this.getPosts();
-    // this.activatedRoute.paramMap.subscribe(() => this.getPosts());
+    // this.getPosts();
+    this.activatedRoute.paramMap.subscribe(() => this.getPosts());
     // this.router.paramMap.subscribe(() => this.getPosts());
 
     //this.blogService.getPosts(this.username).then((post)=>this.posts = post);
@@ -119,6 +124,10 @@ export class ListComponent implements OnInit {
 
   }
 
+  saveCurrPostAsDraft(post){
+    this.blogService.setCurrentDraft(post);
+    this.router.navigate(['/edit/' +post.postid]);
+  }
   //for testing
   //showAlert() { alert("Submit button pressed!"); return false; }
 

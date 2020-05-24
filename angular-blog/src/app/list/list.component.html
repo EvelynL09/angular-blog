@@ -25,10 +25,10 @@
         [class.selected]="post === posts"
         (click)="onSelect(post)"
         > -->
-
     <li *ngFor="let post of posts">
       <!-- click a single post to get edit component -->
-      <a [routerLink]="['/edit', post.postid]">
+      <a (click)="saveCurrPostAsDraft(post)">
+      <!-- <a [routerLink]="['/edit', post.postid]"> -->
         <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
       </a>
     </li>
