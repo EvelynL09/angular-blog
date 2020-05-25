@@ -68,8 +68,8 @@ export class EditComponent implements OnInit {
   	save(){
   		// this.blogService.updatePost();
   	}
-    preview(){
-
+    preview(postid){
+        this.router.navigate(['/preview/' + postid]);
     }
 
 }
