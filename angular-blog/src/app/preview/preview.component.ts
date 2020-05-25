@@ -30,23 +30,39 @@ export class PreviewComponent implements OnInit {
   }
   setPreview(){
     this.getPost();
-    this.renderPost();
+    // this.renderPost();
   }
 
   getPost() {
     this.postid = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     let currDraft:Post = this.blogService.getCurrentDraft();
-    console.log(currDraft)
     if(currDraft == null){
       this.blogService.getPost(this.username, this.postid)
-                            .then(post => {this.post = post;});
+                            .then(post => {
+                                this.post = post;
+                            	let parsedTitle = this.parser.parse(this.post.title);
+                            	this.title = this.render.render(parsedTitle);
+                            	let parsedBody = this.parser.parse(this.post.body);
+                            	this.body = this.render.render(parsedBody);
+                            });
     }
     else if (currDraft.postid != this.postid){
       this.blogService.getPost(this.username, this.postid)
-                                .then(post => {this.post = post;});
+                                .then(post => {
+                                    this.post = post;
+                                	let parsedTitle = this.parser.parse(this.post.title);
+                                	this.title = this.render.render(parsedTitle);
+                                	let parsedBody = this.parser.parse(this.post.body);
+                                	this.body = this.render.render(parsedBody);
+                                });
     }
     else{
       this.post = this.blogService.getCurrentDraft();
+      let parsedTitle = this.parser.parse(this.post.title);
+      this.title = this.render.render(parsedTitle);
+      let parsedBody = this.parser.parse(this.post.body);
+      this.body = this.render.render(parsedBody);
+
     }
 
   }

@@ -78,7 +78,8 @@ export class EditComponent implements OnInit {
     //Called when the user clicks on the “preview” button in the EditComponent,
     preview(){
         //you should (locally) save the current (edited) draft by calling setCurrentDraft(post)
-        // of BlogService (so that PreviewComponent) can obtain the (edited) draft) and 
+        // of BlogService (so that PreviewComponent) can obtain the (edited) draft) and
+
         this.blogService.setCurrentDraft(this.post);
         //“navigate” to the URL preview/:id.
         this.router.navigate(['/preview/' + this.postid]);
