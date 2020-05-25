@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class BlogService {
   draft: Post;
+  callback = null;
 
   constructor() {
       this.draft = null;
@@ -116,6 +117,14 @@ export class BlogService {
   getCurrentDraft(): Post {
     return this.draft;
   }
+  sendUpdate(username) {
+    //this.callback(this.fetchPosts(username));
+    this.fetchPosts(username)
+    .then((posts)=>{this.callback(posts)});
+
+  }
+  subscribe(callback) { this.callback = callback; }
+
 
 
 }
