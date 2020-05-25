@@ -6,12 +6,17 @@ import { FormsModule } from '@angular/forms';
 // //For @Input()
 // import { Input } from '@angular/core';
 
+//import { EventEmitter, Output } from '@angular/core';
+
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
+
 export class EditComponent implements OnInit {
+  //@Output() update = new EventEmitter<Post[]>();
   	post:Post;
   	username:string;
   	postid:number;
@@ -60,8 +65,12 @@ export class EditComponent implements OnInit {
   	}
   	delete(){
   		this.blogService.deletePost(this.username, this.postid);
-  		this.router.navigate(['/']).then(() => {window.location.reload(); });
-  		// this.router.navigate(['/']).then(() => { });
+      //this.blogService.fetchPosts(this.username)
+      //.then((posts)=>{this.update.emit(posts);});
+      //console.log("Event send");
+      this.blogService.sendUpdate(this.username);
+  		//this.router.navigate(['/']).then(() => {window.location.reload(); });
+  		this.router.navigate(['/']).then(() => { });
 
   		// this.router.navigate(['/']);
   	}

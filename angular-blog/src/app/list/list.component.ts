@@ -20,12 +20,13 @@ export class ListComponent implements OnInit {
 
   nextID: number;
   username: string;
+
   // posts = this.blogService.fetchPosts(this.username);
 
   constructor(private blogService: BlogService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
-    this.posts = [];
+    blogService.subscribe((posts) => { this.posts = posts; });
       // console.log(parseJWT(document.cookie).usr);
       // this.blogService.fetchPosts(this.username)
       // .then(posts => {
@@ -128,6 +129,13 @@ export class ListComponent implements OnInit {
     this.blogService.setCurrentDraft(post);
     this.router.navigate(['/edit/' +post.postid]);
   }
+/*
+  setUpdate(posts){
+    console.log("I am here");
+    console.log(posts);
+    this.posts=posts;
+  }
+  */
   //for testing
   //showAlert() { alert("Submit button pressed!"); return false; }
 
