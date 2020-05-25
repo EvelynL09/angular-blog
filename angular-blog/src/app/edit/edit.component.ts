@@ -2,13 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Post, BlogService } from '../blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormsModule } from '@angular/forms';
-// //For @Input()
-// import { Input } from '@angular/core';
-
-//import { EventEmitter, Output } from '@angular/core';
-
-
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -45,7 +38,6 @@ export class EditComponent implements OnInit {
   	getPost() {
   		this.postid = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         let currDraft:Post = this.blogService.getCurrentDraft();
-        console.log(currDraft)
         if(currDraft == null){
             this.blogService.getPost(this.username, this.postid)
                                     .then(post => {this.post = post;});
@@ -63,17 +55,15 @@ export class EditComponent implements OnInit {
       		this.post = post;
       	});*/
   	}
+    //called when delete button is clicked
   	delete(){
   		this.blogService.deletePost(this.username, this.postid);
-        //this.blogService.fetchPosts(this.username)
-        //.then((posts)=>{this.update.emit(posts);});
-        //console.log("Event send");
+        //trigger posts list to update
         this.blogService.sendUpdate(this.username);
-  		//this.router.navigate(['/']).then(() => {window.location.reload(); });
-  		this.router.navigate(['/']).then(() => { });
-
-  		// this.router.navigate(['/']);
+        //go back to main list page
+  		this.router.navigate(['/']);
   	}
+    //called when save button is clicked
   	save(){
         //this.post = this.blogService.getCurrentDraft();
         if(this.blogService.getIsNewDraft()){
@@ -86,9 +76,11 @@ export class EditComponent implements OnInit {
         this.blogService.sendUpdate(this.username);
   	}
     //Called when the user clicks on the “preview” button in the EditComponent,
-    //you should (locally) save the current (edited) draft by calling setCurrentDraft(post) of BlogService (so that PreviewComponent) can obtain the (edited) draft) and “navigate” to the URL preview/:id.
     preview(){
+        //you should (locally) save the current (edited) draft by calling setCurrentDraft(post)
+        // of BlogService (so that PreviewComponent) can obtain the (edited) draft) and 
         this.blogService.setCurrentDraft(this.post);
+        //“navigate” to the URL preview/:id.
         this.router.navigate(['/preview/' + this.postid]);
     }
 

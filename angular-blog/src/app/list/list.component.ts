@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Post, BlogService } from '../blog.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ThrowStmt } from '@angular/compiler';
-
-// //For @Input()
-// import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -14,78 +11,22 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ListComponent implements OnInit {
 
-  // //Decorate a property with @Input() to expose it to property binding
-  // @Input() posts:Post[];
   posts:Post[];
-
   nextID: number;
   username: string;
 
-  // posts = this.blogService.fetchPosts(this.username);
-
   constructor(private blogService: BlogService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private router: Router) {
+    //subscribe posts update from blog service
     blogService.subscribe((posts) => { this.posts = posts; });
-      // console.log(parseJWT(document.cookie).usr);
-      // this.blogService.fetchPosts(this.username)
-      // .then(posts => {
-      //     console.log("posts:" + posts);
-      //     this.posts = posts;    });
-      // console.log("posts" + this.posts);
   }
 
   ngOnInit(): void {
-    // this.posts =
-
-    //if(document.cookie){
-    //  let username = parseJWT(document.cookie).usr;
     this.username = this.getUsername();
-    // this.getPosts();
-    this.activatedRoute.paramMap.subscribe(() => this.getPosts());
-    // this.router.paramMap.subscribe(() => this.getPosts());
-
-    //this.blogService.getPosts(this.username).then((post)=>this.posts = post);
-
-
-
-      /* not work
-      this.posts=this.blogService.fetchPosts(username)
-      .then(posts => {
-        this.posts = [];
-        this.posts = posts;
-      });
-      console.log(this.posts);
-      */
-      // username = "errorTrigger"; //for bug triggering
-
-
-
-      /*
-      this.blogService.getPost(username,1).then(post => {
-        this.posts = [];
-        this.posts[0] = post;
-      });*/
-      /*
-      let tempPost_new:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
-      let tempPost_put1:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here." };
-      let tempPost_put2:Post = { "postid": 3, "created": new Date(), "modified": new Date(), "title": "## Title 3", "body": "I am here._hello" };
-      */
-      //this.blogService.newPost(username, tempPost_new);
-      //this.blogService.updatePost(username, tempPost_put1);
-      //this.blogService.deletePost(username, 3);
-      //console.log(JSON.stringify(this.blogService.getCurrentDraft()));
-      //this.blogService.setCurrentDraft(tempPost_put2);
-      //console.log(JSON.stringify(this.blogService.getCurrentDraft()));
-
-
-    //}
-    //else{
-    //    console.log("TODO: no cookie is found!");
-    //}
-    // console.log("ListComponent - posts")
-    // console.log(this.posts);
+    this.getPosts();
   }
+
+  //get user name from cookie
   getUsername() {
     let username = "";
     if(document.cookie){
@@ -96,6 +37,7 @@ export class ListComponent implements OnInit {
     }
     return username;
   }
+  //
   getPosts() {
     this.blogService.fetchPosts(this.username)
     .then(posts => {
@@ -116,32 +58,24 @@ export class ListComponent implements OnInit {
   //called when new post button is clicked
   newPost(){
     this.blogService.setIsNewDraft(true);
+    // create a new empty post whose postid is +1 of the maximum postids of the user
     this.getNextID();
-    //console.log(this.nextID);
     let tempPost_new:Post = { "postid": this.nextID, "created": new Date(), "modified": new Date(), "title": "", "body": "" };
+    //sets it as the current draft by calling setCurrentDraft()
     this.blogService.setCurrentDraft(tempPost_new);
-    //this.getPosts();
+    // open the “edit view” on the right side.
     this.router.navigate(['/edit/' +this.nextID]);
-
   }
 
   //called when a post is clicked
-  saveCurrPostAsDraft(post){
+  currPost(post){
+    //old post
     this.blogService.setIsNewDraft(false);
+    // it sets the clicked post as the “current draft” by calling setCurrentDraft(post) of BlogService
     this.blogService.setCurrentDraft(post);
+    // open the “edit view” on the right side.
     this.router.navigate(['/edit/' +post.postid]);
   }
-/*
-  setUpdate(posts){
-    console.log("I am here");
-    console.log(posts);
-    this.posts=posts;
-  }
-  */
-  //for testing
-  //showAlert() { alert("Submit button pressed!"); return false; }
-
-
 }
 
 //the JWT token is accessible through document.cookie

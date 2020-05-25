@@ -8,7 +8,6 @@ import { PreviewComponent } from './preview/preview.component';
 //2. adding the mapping to routes
 const routes: Routes = [
     { path: 'edit/:id', component: EditComponent },
-    // { path: '', component: ListComponent }
     { path: 'preview/:id', component: PreviewComponent }
 ];
 
