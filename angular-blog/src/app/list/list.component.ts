@@ -115,17 +115,19 @@ export class ListComponent implements OnInit {
   }
   //called when new post button is clicked
   newPost(){
+    this.blogService.setIsNewDraft(true);
     this.getNextID();
     //console.log(this.nextID);
     let tempPost_new:Post = { "postid": this.nextID, "created": new Date(), "modified": new Date(), "title": "", "body": "" };
-    this.blogService.newPost(this.username, tempPost_new);
     this.blogService.setCurrentDraft(tempPost_new);
-    this.getPosts();
+    //this.getPosts();
     this.router.navigate(['/edit/' +this.nextID]);
 
   }
 
+  //called when a post is clicked
   saveCurrPostAsDraft(post){
+    this.blogService.setIsNewDraft(false);
     this.blogService.setCurrentDraft(post);
     this.router.navigate(['/edit/' +post.postid]);
   }

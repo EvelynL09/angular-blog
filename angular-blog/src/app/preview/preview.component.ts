@@ -13,6 +13,8 @@ export class PreviewComponent implements OnInit {
   post:Post;
   postid:number;
   username:string;
+  title:string;
+  body:string;
   parser:Parser;
   render:HtmlRenderer;
 
@@ -52,12 +54,9 @@ export class PreviewComponent implements OnInit {
   renderPost(){
     console.log("hi");
 	let parsedTitle = this.parser.parse(this.post.title);
-	let curTitle = this.render.render(parsedTitle);
+	this.title = this.render.render(parsedTitle);
 	let parsedBody = this.parser.parse(this.post.body);
-	let curBody = this.render.render(parsedBody);
-
-    this.post.title = curTitle;
-    this.post.body = curBody;
+	this.body = this.render.render(parsedBody);
   }
 
   //Edit button

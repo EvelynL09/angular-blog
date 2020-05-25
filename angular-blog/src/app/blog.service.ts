@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class BlogService {
   draft: Post;
+  isNewDraft: boolean;
   callback = null;
 
   constructor() {
@@ -125,6 +126,13 @@ export class BlogService {
   }
   subscribe(callback) { this.callback = callback; }
 
+  setIsNewDraft(value){
+    this.isNewDraft = value;
+  }
+
+  getIsNewDraft(){
+    return this.isNewDraft;
+  }
 
 
 }
