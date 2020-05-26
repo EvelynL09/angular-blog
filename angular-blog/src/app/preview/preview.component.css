@@ -2,3 +2,17 @@
   float: left;
   width: 33.33%;
 }
+
+.button {
+  transition-duration: 0.4s;
+  border: 0.5px solid black;
+  padding: .5em;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #405061;
+  color: white;
+}

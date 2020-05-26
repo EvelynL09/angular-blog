@@ -4,12 +4,9 @@
   </div>
 
   <ul class="posts">
-    <li *ngFor="let post of posts">
-      <!-- click a single post to get edit component -->
-      <a (click)="currPost(post)">
+    <li *ngFor="let post of posts" (click)="currPost(post)">
       <!-- <a [routerLink]="['/edit', post.postid]"> -->
-        <span class="badge">{{post.created | date: "medium"}}</span> {{post.title}}
-      </a>
+      <span class="badge">{{post.created | date: "medium"}}</span> <span>{{post.title}}</span>
     </li>
   </ul>
 </div>

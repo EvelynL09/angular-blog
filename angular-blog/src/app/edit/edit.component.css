@@ -3,3 +3,25 @@
   float: left;
   width: 33.33%;/*three column display: https://www.w3schools.com/css/css_website_layout.asp*/
 }
+p {
+  font-weight: bold;
+  /* width: 50%; */
+}
+textarea {
+  width: 100%;
+  min-height: 150px;
+}
+
+.button {
+  transition-duration: 0.4s;
+  float: left;
+  border: 1px solid white;
+  padding: .5em;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #405061;
+  color: white;
+}

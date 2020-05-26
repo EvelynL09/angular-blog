@@ -4,10 +4,10 @@
   width: 33.33%;
 }
 .posts {
-  margin: 0 0 2em 0;
+  margin: 0 2em 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
+  /* width: 15em; */
 }
 .posts li {
   cursor: pointer;
@@ -16,7 +16,7 @@
   background-color: #EEE;
   margin: .1em;
   padding: .3em 0;
-  height: 1.6em;
+  min-height: 1.6em;
   border-radius: 4px;
 }
 .posts li:hover {
@@ -36,17 +36,33 @@
   display: inline-block;
   font-size: small;
   color: white;
-  padding: 0.8em 0.7em 0 0.7em;
+  padding: 0.5em;
   background-color:#405061;
   line-height: 1em;
   position: relative;
   left: -1px;
   top: -4px;
-  height: 1.8em;
+  height: 1.0em;
   margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .posts a {
+  height: 100%;
+  width: 100%;
   color: inherit;
   text-decoration: none;
+}
+
+.button {
+  transition-duration: 0.4s;
+  border: 0.5px solid black;
+  padding: .5em;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #405061;
+  color: white;
 }
